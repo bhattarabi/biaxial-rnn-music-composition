@@ -39,12 +39,12 @@ def midiToNoteStateMatrix(midifile):
                             state[evt.pitch-lowerBound] = [0, 0]
                         else:
                             state[evt.pitch-lowerBound] = [1, 1]
-                elif isinstance(evt, midi.TimeSignatureEvent):
-                    if evt.numerator not in (2, 4):
-                        # We don't want to worry about non-4 time signatures. Bail early!
-                        # print "Found time signature event {}. Bailing!".format(evt)
-                        return statematrix
-
+#                elif isinstance(evt, midi.TimeSignatureEvent):
+#                    if evt.numerator not in (2, 4):
+#                        # We don't want to worry about non-4 time signatures. Bail early!
+#                        # print "Found time signature event {}. Bailing!".format(evt)
+#                        return statematrix
+#
                 try:
                     timeleft[i] = track[pos + 1].tick
                     posns[i] += 1
