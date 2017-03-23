@@ -1,3 +1,4 @@
+import datetime
 import cPickle as pickle
 import gzip
 import numpy
@@ -41,8 +42,17 @@ if __name__ == '__main__':
 
 	pcs = multi_training.loadPieces("music")
 
+	print "building model..."
 	m = model.Model([300,300],[100,50], dropout=0.5)
+	print "built model..."
 
-	multi_training.trainPiece(m, pcs, 10000)
+	e = {}
+	t1 = datetime.datetime.now()
+	e["errors"], e["epochavg"] = multi_training.trainPiece(m, pcs, 50000)
+	t2 = datetime.datetime.now()
+
+	dt = t2-t1
+	e["totaltime"] = dt.seconds
 
 	pickle.dump( m.learned_config, open( "output/final_learned_config.p", "wb" ) )
+	pickle.dump( e, open( "output/results_", "wb" ) )
